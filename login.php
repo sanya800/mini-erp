@@ -4,34 +4,43 @@ include("db.php");
 
 if(isset($_POST['login'])) {
 
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE LOWER(TRIM(email))=LOWER(TRIM('$email'))";
-    $result = mysqli_query($conn, $query);
     echo "Entered Email: " . $email;
 
-    if(mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
+    $query = "SELECT * FROM users WHERE email='$email'";
+    echo "<br>Query: " . $query;
 
-        if($row['password'] == $password) {
+    $result = mysqli_query($conn, $query);
 
-            $_SESSION['user'] = $row['email'];
-            $_SESSION['role'] = $row['role'];
+    if(!$result){
+        die("Query Error: " . mysqli_error($conn));
+    }
 
-            header("Location: dashboard.php");
-            exit();
+    echo "<br>Rows found: " . mysqli_num_rows($result);
 
-        } else {
-            echo "Wrong Password!";
-        }
+    if(mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+
+    if($row['password'] == $password) {
+
+        $_SESSION['user'] = $row['email'];
+        $_SESSION['role'] = $row['role'];
+
+        header("Location: dashboard.php");
+        exit();
 
     } else {
-        echo "User not found!";
+        echo "Wrong Password!";
     }
+
+} else {
+    echo "User not found!";
+}
 }
 ?>
-
+?>
 <!DOCTYPE html>
 <html>
 <head>
