@@ -45,8 +45,9 @@ It helps manage student data, user authentication, and basic college operations.
 ### 📊 Dashboard
 ![Dashboard](images/dashboard.png.png)
 
-### 📘 Attendance
-![Attendance](images/attendance.png.png)
+### 📘 marks
+![marks](images/attendance.png.png)
 
-### 📝 Marks
-![Marks](images/marks.png.png)
+### 📝 Attendance
+![Attendance
+](images/marks.png.png)
